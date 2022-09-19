@@ -4,6 +4,7 @@ const ExpressError = require('./expressError')
 const itemsRoutes = require('./items')
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 app.use("/items",itemsRoutes);
 
 app.use((req,res,next)=>{
@@ -17,7 +18,7 @@ app.use((err,req,res,next) => {
     })
 })
   
-app.listen(3000,function(){
-    console.log('started')
-})
-// module.exports = app
+// app.listen(3000,function(){
+//     console.log('started')
+// })
+module.exports = app

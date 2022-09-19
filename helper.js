@@ -14,7 +14,7 @@ function findItem(name) {
   }
 
 const updateItem = (name,data)=>{
-    let foundItem = items.find(name);
+  const foundItem = items.find(v => v.name === name);
     if (foundItem === undefined) {
       throw {message: "Not Found", status: 404}
     }
@@ -30,5 +30,6 @@ const deleteItem = (name)=>{
       throw {message: "Not Found", status: 404}
     }
    items.splice(foundindex,1)
+   return name
 }
 module.exports={addItem,findItem,updateItem,deleteItem}

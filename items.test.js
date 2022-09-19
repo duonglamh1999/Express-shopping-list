@@ -36,7 +36,7 @@ describe("GET /items/:name",  function () {
   test("Gets a single item", async function () {
     const response = await request(app).get(`/items/${item.name}`);
     expect(response.statusCode).toBe(200);
-    expect(response.body.item).toEqual(item);
+    expect(response.body.items).toEqual(item);
   });
 
   test("Responds with 404 if can't find item", async function () {
@@ -58,10 +58,10 @@ describe("POST /items",  function () {
         price: 0
       });
     expect(response.statusCode).toBe(200);
-    expect(response.body.item).toHaveProperty("name");
-    expect(response.body.item).toHaveProperty("price");
-    expect(response.body.item.name).toEqual("Taco");
-    expect(response.body.item.price).toEqual(0);
+    expect(response.body.items).toHaveProperty("name");
+    expect(response.body.items).toHaveProperty("price");
+    expect(response.body.items.name).toEqual("Taco");
+    expect(response.body.items.price).toEqual(0);
   });
 });
 // end
@@ -77,7 +77,7 @@ describe("PATCH /items/:name",  function () {
         name: "Troll"
       });
     expect(response.statusCode).toBe(200);
-    expect(response.body.item).toEqual({
+    expect(response.body.items).toEqual({
       name: "Troll"
     });
   });
