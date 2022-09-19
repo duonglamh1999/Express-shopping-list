@@ -2,8 +2,10 @@ const { Router } = require('express');
 const express = require('express');
 const items = require("./fakeDb")
 const router = express.Router();
-const {addItem,findItem} = require('./helper')
+const {deleteItem,addItem,findItem,updateItem} = require('./helper')
 
+router.use(express.json())
+router.use(express.urlencoded({ extended: true }))
 router.get("",(req,res,next)=>{
 try {
     return res.json({items})
@@ -13,10 +15,9 @@ catch(err) {
 }
 })
 
-router.post("",(req,res,next)=>{
+router.post("/",(req,res,next)=>{
     try {
         const newItem = addItem(req.body.name,req.body.price)
-        console.log(req.body)
         return res.json({added:newItem})
     }
     catch(err) {
@@ -36,7 +37,7 @@ router.get("/:name",(req,res,next)=>{
 
 router.patch("/:name",(req,res,next)=>{
     try {
-        const foundItem = findItem(req.params.name,req.body)
+        const foundItem = updateItem(req.params.name,req.body)
         return res.json({updated:foundItem})
     }
     catch(err) {
@@ -45,8 +46,8 @@ router.patch("/:name",(req,res,next)=>{
 })
 router.delete("/:name",(req,res,next)=>{
     try {
-        items.remove(req.params.name)
-        return res.json({message:"Deleted"})
+        const remove = deleteItem(req.params.name)
+        return res.json({delete:remove})
     }
     catch(err) {
         return next(err)
